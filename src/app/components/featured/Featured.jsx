@@ -23,7 +23,7 @@ const Featured = () => {
             Architecto dolores consequatur sunt, maiores quibusdam vero hic
             porro dolorem ab unde.
           </p>
-          <button>Read More</button>
+          <button className={styles.button}>Read More</button>
         </div>
       </div>
     </div>
