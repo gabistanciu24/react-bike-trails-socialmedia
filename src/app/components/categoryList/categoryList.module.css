@@ -23,19 +23,19 @@
   border-radius: 10px;
 }
 
-.category.coding {
+.category.singletrack {
   background-color: #ff795736;
 }
 
-.category.travel {
+.category.downhill {
   background-color: #da85c731;
 }
 
-.category.culture {
+.category.enduro {
   background-color: #57c4ff31;
 }
 
-.category.food {
+.category.crosscountry {
   background-color: #7fb00133;
 }
 
