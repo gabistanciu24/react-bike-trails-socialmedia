@@ -15,10 +15,10 @@ const getData = async (slug) => {
     }
 
     const data = await res.json();
-    console.log("Data:", data); // Log the data
+    //console.log("Data:", data); // Log the data
     return data;
   } catch (error) {
-    console.error("Error fetching data:", error); // Log any errors
+    //console.error("Error fetching data:", error); // Log any errors
     throw error; // Re-throw the error
   }
 };
@@ -62,7 +62,7 @@ const SinglePage = async ({ params }) => {
             dangerouslySetInnerHTML={{ __html: `${data?.desc}` }}
           ></div>
           <div className={styles.comment}>
-            <Comments />
+            <Comments postSlug={slug} />
           </div>
         </div>
         <Menu />
