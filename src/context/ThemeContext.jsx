@@ -1,3 +1,4 @@
+"use client";
 // Import necessary dependencies
 import { createContext, useState, useEffect } from "react";
 
