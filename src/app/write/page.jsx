@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./writePage.module.css";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/router"; // Correct router import
 import { useSession } from "next-auth/react";
 import {
   getStorage,
