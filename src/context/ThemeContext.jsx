@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { createContext, useState, useEffect } from "react";
 
@@ -6,8 +6,14 @@ export const ThemeContext = createContext();
 
 const getFromLocalStorage = () => {
   try {
-    const value = localStorage.getItem("theme");
-    return value || "dark";
+    // Check if window is defined before accessing localStorage
+    if (typeof window !== "undefined") {
+      const value = localStorage.getItem("theme");
+      return value || "dark";
+    } else {
+      console.error("Error: localStorage is not available on the server-side.");
+      return "dark"; // Default value
+    }
   } catch (error) {
     console.error("Error accessing localStorage:", error);
     return "dark"; // Default value
@@ -27,16 +33,16 @@ export const ThemeContextProvider = ({ children }) => {
     }
   }, [theme]);
 
-  const toggle = () =>{
+  const toggle = () => {
     setTheme(theme === "light" ? "dark" : "light");
-  }
+  };
 
-  useEffect(()=>{
-    localStorage.setItem("theme",theme)
-  },[theme]);
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme,toggle }}>
+    <ThemeContext.Provider value={{ theme, toggle }}>
       {children}
     </ThemeContext.Provider>
   );
