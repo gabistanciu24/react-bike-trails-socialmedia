@@ -17,9 +17,10 @@ import dynamic from "next/dynamic";
 
 const storage = getStorage(app);
 
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
 const WritePage = () => {
   const { status } = useSession();
-  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
   const router = useRouter();
 
   const [file, setFile] = useState(null);
