@@ -1,7 +1,7 @@
 "use client";
 import React, { useReducer } from "react";
 import styles from "./pagination.module.css";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 
 const Pagination = ({ page, hasPrev, hasNext }) => {
   const router = useRouter();

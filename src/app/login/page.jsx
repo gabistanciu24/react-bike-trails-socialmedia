@@ -2,7 +2,7 @@
 import React from "react";
 import styles from "./loginPage.module.css";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 
 const LoginPage = () => {
   const { data, status } = useSession();
