@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./writePage.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Router from "next/router";
 import { useSession } from "next-auth/react";
 import {
   getStorage,
@@ -20,8 +19,8 @@ const storage = getStorage(app);
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const WritePage = () => {
-  const { status } = useSession();
   const router = useRouter();
+  const { status } = useSession();
 
   const [file, setFile] = useState(null);
   const [media, setMedia] = useState("");
@@ -31,8 +30,14 @@ const WritePage = () => {
   const [category, setCategory] = useState("");
 
   useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
+
+  useEffect(() => {
     if (file) {
-      const upload = () => {
+      const upload = async () => {
         const name = new Date().getTime + file.name;
         const storageRef = ref(storage, name);
 
@@ -66,12 +71,6 @@ const WritePage = () => {
     }
   }, [file]);
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/");
-    }
-  }, [status]);
-
   const slugify = (str) =>
     str
       .toLowerCase()
@@ -81,25 +80,20 @@ const WritePage = () => {
       .replace(/^-+|-+$/g, "");
 
   const handleSubmit = async () => {
-    const res = await fetch(
-      "https://react-bike-trails-socialmedia.vercel.app/api/posts",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          title,
-          desc: value,
-          img: media,
-          slug: slugify(title),
-          catSlug: category || "downhill", //If not selected, choose the general category
-        }),
-      }
-    );
+    const res = await fetch("/api/posts", {
+      method: "POST",
+      body: JSON.stringify({
+        title,
+        desc: value,
+        img: media,
+        slug: slugify(title),
+        catSlug: category || "downhill",
+      }),
+    });
 
-    if (res.status === 200) {
+    if (res.ok) {
       const data = await res.json();
-      router.push(
-        `https://react-bike-trails-socialmedia.vercel.app/posts/${data.slug}`
-      );
+      router.push(`/posts/${data.slug}`);
     }
   };
 
@@ -109,6 +103,7 @@ const WritePage = () => {
         type="text"
         placeholder="Title"
         className={styles.input}
+        value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
       <input
