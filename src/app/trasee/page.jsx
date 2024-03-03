@@ -1,8 +1,8 @@
 import CardList from "../components/cardList/CardList";
 import styles from "./traseePage.module.css";
-import Menu from "../components/Menu/Menu.jsx";
+import Menu from "@/components/Menu/Menu.jsx";
 
-const BlogPage = ({ searchParams }) => {
+const BikeTrailsPage = ({ searchParams }) => {
   const page = parseInt(searchParams.page) || 1;
   const { cat } = searchParams;
 
@@ -17,4 +17,4 @@ const BlogPage = ({ searchParams }) => {
   );
 };
 
-export default BlogPage;
+export default BikeTrailsPage;
