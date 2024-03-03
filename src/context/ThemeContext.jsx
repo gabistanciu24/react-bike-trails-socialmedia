@@ -6,7 +6,6 @@ export const ThemeContext = createContext();
 
 const getFromLocalStorage = () => {
   try {
-    // Check if window is defined before accessing localStorage
     if (typeof window !== "undefined") {
       const value = localStorage.getItem("theme");
       return value || "dark";
