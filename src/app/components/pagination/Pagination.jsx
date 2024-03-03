@@ -10,14 +10,22 @@ const Pagination = ({ page, hasPrev, hasNext }) => {
       <button
         className={styles.button}
         disabled={!hasPrev}
-        onClick={() => router.push(`?page=${page - 1}`)}
+        onClick={() =>
+          router.push(
+            `https://react-bike-trails-socialmedia.vercel.app?page=${page - 1}`
+          )
+        }
       >
         Inapoi
       </button>
       <button
         className={styles.button}
         disabled={!hasNext}
-        onClick={() => router.push(`?page=${page + 1}`)}
+        onClick={() =>
+          router.push(
+            `https://react-bike-trails-socialmedia.vercel.app?page=${page + 1}`
+          )
+        }
       >
         Inainte
       </button>

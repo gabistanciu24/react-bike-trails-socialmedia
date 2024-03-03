@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./writePage.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Router from "next/router";
 import { useSession } from "next-auth/react";
 import {
   getStorage,
@@ -79,20 +80,25 @@ const WritePage = () => {
       .replace(/^-+|-+$/g, "");
 
   const handleSubmit = async () => {
-    const res = await fetch("/api/posts", {
-      method: "POST",
-      body: JSON.stringify({
-        title,
-        desc: value,
-        img: media,
-        slug: slugify(title),
-        catSlug: category || "downhill", //If not selected, choose the general category
-      }),
-    });
+    const res = await fetch(
+      "https://react-bike-trails-socialmedia.vercel.app/api/posts",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          title,
+          desc: value,
+          img: media,
+          slug: slugify(title),
+          catSlug: category || "downhill", //If not selected, choose the general category
+        }),
+      }
+    );
 
     if (res.status === 200) {
       const data = await res.json();
-      router.push(`/posts/${data.slug}`);
+      router.push(
+        `https://react-bike-trails-socialmedia.vercel.app/posts/${data.slug}`
+      );
     }
   };
 
