@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./singlePage.module.css";
-import Menu from "../../components/menu/Menu.jsx";
+import Menu from "@/app/components/Menu/Menu";
 import Image from "next/image";
 import Comments from "../../components/comments/Comments";
 
