@@ -17,10 +17,10 @@ const Footer = () => {
           <h1 className={styles.logoText}>BikeTrails</h1>
         </div>
         <p className={styles.desc}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, dolor
-          cumque hic qui repellendus ad, reprehenderit similique veritatis modi
-          dicta rem amet repudiandae repellat ex sunt quisquam odit. Quas,
-          ipsam?
+          Explorează vârfurile și potecile noastre montane. Bucură-te de fiecare
+          pedalare și lasă-te purtat de frumusețea naturii înconjurătoare.
+          Alătură-te comunității noastre de pasionați și descoperă senzațiile
+          unice pe care le oferă călătoriile cu bicicleta în munți.
         </p>
         <div className={styles.icons}>
           <Image src="/facebook.png" alt="" width={18} height={18} />

@@ -36,8 +36,4 @@
   .burger {
     display: flex;
   }
-
-  .link {
-    display: none;
-  }
 }

@@ -48,11 +48,15 @@
 .imageContainer {
   flex: 1;
   height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 
 .image {
-  object-fit: cover;
+  max-height: 500px;
+  border-radius: 30px;
 }
 
 .content {

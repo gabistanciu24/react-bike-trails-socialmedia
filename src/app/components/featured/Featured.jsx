@@ -10,20 +10,24 @@ const Featured = () => {
       </h1>
       <div className={styles.post}>
         <div className={styles.imgContainer}>
-          <Image src="/enduro.png" alt="" fill className={styles.image} />
+          <Image
+            src="/biketrails2.png"
+            alt=""
+            className={styles.image}
+            width={450}
+            height={450}
+          />
         </div>
         <div className={styles.textContainer}>
-          <h1 className={styles.postTitle}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </h1>
+          <h1 className={styles.postTitle}>Explorând Înălțimile Naturii</h1>
           <p className={styles.postDesc}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-            dolores consequatur sunt, maiores quibusdam vero hic porro dolorem
-            ab unde. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Architecto dolores consequatur sunt, maiores quibusdam vero hic
-            porro dolorem ab unde.
+            Explorează vârfurile și potecile noastre montane. Bucură-te de
+            fiecare pedalare și lasă-te purtat de frumusețea naturii
+            înconjurătoare. Alătură-te comunității noastre de pasionați și
+            descoperă senzațiile unice pe care le oferă călătoriile cu bicicleta
+            în munți
           </p>
-          <button className={styles.button}>Read More</button>
+          <button className={styles.button}>Despre</button>
         </div>
       </div>
     </div>
