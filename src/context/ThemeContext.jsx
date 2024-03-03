@@ -24,20 +24,19 @@ export const ThemeContextProvider = ({ children }) => {
     return getFromLocalStorage();
   });
 
-  useEffect(() => {
-    try {
-      localStorage.setItem("theme", theme);
-    } catch (error) {
-      console.error("Error accessing localStorage:", error);
-    }
-  }, [theme]);
-
   const toggle = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
   useEffect(() => {
-    localStorage.setItem("theme", theme);
+    try {
+      // Check if window is defined to ensure running in the browser
+      if (typeof window !== "undefined") {
+        localStorage.setItem("theme", theme);
+      }
+    } catch (error) {
+      console.error("Error accessing localStorage:", error);
+    }
   }, [theme]);
 
   return (
