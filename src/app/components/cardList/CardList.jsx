@@ -5,9 +5,14 @@ import Image from "next/image";
 import { Card } from "../card/Card";
 
 const getData = async (page, cat) => {
-  const res = await fetch(`/api/posts?page=${page}&cat=${cat || ""}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `https://react-bike-trails-socialmedia.vercel.app/api/posts?page=${page}&cat=${
+      cat || ""
+    }`,
+    {
+      cache: "no-store",
+    }
+  );
 
   if (!res.ok) {
     throw new Error("Failed");

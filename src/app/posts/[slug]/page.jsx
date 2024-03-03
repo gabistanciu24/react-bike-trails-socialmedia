@@ -6,9 +6,12 @@ import Comments from "../../components/comments/Comments";
 
 const getData = async (slug) => {
   try {
-    const res = await fetch(`/api/posts/${slug}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `https://react-bike-trails-socialmedia.vercel.app/api/posts/${slug}`,
+      {
+        cache: "no-store",
+      }
+    );
 
     if (!res.ok) {
       throw new Error("Failed to fetch data");

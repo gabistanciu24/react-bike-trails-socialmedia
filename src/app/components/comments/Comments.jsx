@@ -24,7 +24,7 @@ const Comments = ({ postSlug }) => {
   const { status } = useSession();
 
   const { data, mutate, isLoading } = useSWR(
-    `/api/comments?postSlug=${postSlug}`,
+    `https://react-bike-trails-socialmedia.vercel.app/api/comments?postSlug=${postSlug}`,
     fetcher
   );
 
