@@ -1,47 +1,41 @@
-"use client";
-
+// Import necessary dependencies
 import { createContext, useState, useEffect } from "react";
 
+// Create the theme context
 export const ThemeContext = createContext();
 
-const getFromLocalStorage = () => {
-  try {
-    if (typeof window !== "undefined") {
-      const value = localStorage.getItem("theme");
-      return value || "dark";
-    } else {
-      console.error("Error: localStorage is not available on the server-side.");
-      return "dark"; // Default value
-    }
-  } catch (error) {
-    console.error("Error accessing localStorage:", error);
-    return "dark"; // Default value
-  }
-};
-
+// Define the ThemeContextProvider component
 export const ThemeContextProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
-    return getFromLocalStorage();
-  });
+  // State to hold the theme
+  const [theme, setTheme] = useState("dark");
 
-  useEffect(() => {
-    try {
-      localStorage.setItem("theme", theme);
-    } catch (error) {
-      console.error("Error accessing localStorage:", error);
-    }
-  }, [theme]);
-
-  const toggle = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+  // Function to toggle the theme
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
+  // Effect to update the theme based on URL parameter
   useEffect(() => {
-    localStorage.setItem("theme", theme);
+    // Function to get theme preference from URL parameter
+    const getThemeFromURL = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const themeParam = urlParams.get("theme");
+      return themeParam || "dark"; // Default to dark theme if no parameter is provided
+    };
+
+    // Update theme based on URL parameter
+    setTheme(getThemeFromURL());
+  }, []);
+
+  // Effect to update URL parameter when theme changes
+  useEffect(() => {
+    // Update URL parameter with theme preference
+    window.history.replaceState(null, null, `?theme=${theme}`);
   }, [theme]);
 
+  // Render the context provider with theme state and toggle function
   return (
-    <ThemeContext.Provider value={{ theme, toggle }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
