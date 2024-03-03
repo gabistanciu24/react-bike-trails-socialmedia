@@ -3,9 +3,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./writePage.module.css";
 import Image from "next/image";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.bubble.css";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import {
   getStorage,
@@ -31,45 +29,46 @@ const WritePage = () => {
   const [category, setCategory] = useState("");
 
   useEffect(() => {
-    const upload = () => {
-      const name = new Date().getTime + file.name;
-      const storageRef = ref(storage, name);
+    if (file) {
+      const upload = () => {
+        const name = new Date().getTime + file.name;
+        const storageRef = ref(storage, name);
 
-      const uploadTask = uploadBytesResumable(storageRef, file);
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-          switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
-              break;
-            case "running":
-              console.log("Upload is running");
-              break;
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log("Upload is " + progress + "% done");
+            switch (snapshot.state) {
+              case "paused":
+                console.log("Upload is paused");
+                break;
+              case "running":
+                console.log("Upload is running");
+                break;
+            }
+          },
+          (error) => {},
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              setMedia(downloadURL);
+            });
           }
-        },
-        (error) => {},
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setMedia(downloadURL);
-          });
-        }
-      );
-    };
+        );
+      };
 
-    file && upload();
+      upload();
+    }
   }, [file]);
 
-  if (status === "loading") {
-    return <div className={styles.loading}>Se incarca...</div>;
-  }
-  if (status === "unauthenticated") {
-    router.push("/");
-  }
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/");
+    }
+  }, [status]);
 
   const slugify = (str) =>
     str
@@ -136,13 +135,15 @@ const WritePage = () => {
             </button>
           </div>
         )}
-        <ReactQuill
-          className={styles.textArea}
-          theme="bubble"
-          value={value}
-          onChange={setValue}
-          placeholder="Spune-ne povestea ta..."
-        />
+        {ReactQuill && (
+          <ReactQuill
+            className={styles.textArea}
+            theme="bubble"
+            value={value}
+            onChange={setValue}
+            placeholder="Spune-ne povestea ta..."
+          />
+        )}
       </div>
       <button className={styles.publish} onClick={handleSubmit}>
         Publish
